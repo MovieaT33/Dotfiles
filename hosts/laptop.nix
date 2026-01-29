@@ -1,5 +1,5 @@
 { inputs, ... }:
 
 {
-  imports = builtins.attrValues (inputs.import-tree ../../modules);
+  imports = [ inputs.import-tree ../modules ];
 }
