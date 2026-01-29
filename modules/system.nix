@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ inputs, ... }:
 
+let
+  pkgs = inputs.nixpkgs;
+in
 {
   nixosModules.nixosModule.config = {
     system.stateVersion = "25.11";

@@ -3,6 +3,6 @@
 {
   nixosConfigurations."nixos" = pkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = [ ./hardware.nix ./bootloader.nix ./system.nix ];
+    modules = [ ./bootloader.nix ./hardware.nix ./system.nix ];
   };
 }

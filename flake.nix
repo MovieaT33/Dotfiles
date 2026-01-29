@@ -5,9 +5,14 @@
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { flake-parts, nixpkgs, ... } @ inputs:
-    flake-parts.lib.mkFlake {} {
+  outputs = { flake-parts, ... } @ inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      imports = [ ./modules/machine.nix ];
+      imports = [
+        ./modules/bootloader.nix
+        ./modules/hardware.nix
+        ./modules/machine.nix
+        ./modules/system.nix
+      ];
     };
 }
