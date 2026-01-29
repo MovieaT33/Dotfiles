@@ -1,3 +1,6 @@
+# Variables
+PROFILE := "laptop"
+
 # Aliases
 alias v := version
 alias i := install
@@ -39,11 +42,11 @@ update:
 
 # deploy configuration with current profile
 deploy:
-    sudo nixos-rebuild switch --flake .#nixos
+    sudo nixos-rebuild switch --flake .#{{PROFILE}}
 
 # deploy without re-exec
 fast-deploy:
-    sudo nixos-rebuild switch --flake .#nixos --no-reexec
+    sudo nixos-rebuild switch --flake .#{{PROFILE}} --no-reexec
 
 # verify nix store integrity and repair if necessary
 repair:

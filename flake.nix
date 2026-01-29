@@ -1,18 +1,17 @@
 {
   inputs = {
-      flake-parts.url = "github:hercules-ci/flake-parts";
-      import-tree.url = "github:vic/import-tree";
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      import-tree.url = "github:vic/import-tree";
   };
 
-  outputs = { flake-parts, ... } @ inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
-      imports = [
-        ./modules/bootloader.nix
-        ./modules/hardware.nix
-        ./modules/machine.nix
-        ./modules/system.nix
-      ];
+  outputs = { nixpkgs, ... } @ inputs: let
+    system = "x86_64-linux";
+  in {
+    nixosConfigurations = {
+      laptop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = import-tree ./hosts/laptop ++ import-tree ./modules;
+      };
     };
+  };
 }
