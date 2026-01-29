@@ -4,14 +4,13 @@
       import-tree.url = "github:vic/import-tree";
   };
 
-  outputs = { nixpkgs, import-tree, ... } @ inputs: let
+  outputs = { inputs, ... } @ inputs: let
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
+      laptop = inputs.nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = builtins.attrValues (import-tree ./hosts/laptop)
-               ++ builtins.attrValues (import-tree ./modules);
+        modules = ./hosts/laptop/default.nix;
       };
     };
   };
