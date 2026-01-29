@@ -1,15 +1,13 @@
 { ... }:
 
 {
-  boot = {
+  boot.loader = {
     efi.canTouchEfiVariables = true;
-    loader = {
-      systemd-boot = {
-        enable = true;
-        editor = false;
-        consoleMode = "2";
-      };
-      timeout = 1;
+    systemd-boot = {
+      enable = true;
+      editor = false;
+      consoleMode = "max";
     };
+    timeout = 1;
   };
 }
