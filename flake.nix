@@ -11,7 +11,7 @@
       laptop = inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/laptop/default.nix ];
+        modules = [ ./hardware.nix ./hosts/laptop.nix ];
       };
     };
   };
