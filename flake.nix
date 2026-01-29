@@ -10,9 +10,8 @@
     nixosConfigurations = {
       laptop = inputs.nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          (import ./hosts/laptop/default.nix { inherit inputs; })
-        ];
+        specialArgs = { inherit inputs; };
+        modules = [ ./hosts/laptop/default.nix ];
       };
     };
   };
