@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   nixosModules.hardwareModule.config = {
