@@ -1,0 +1,73 @@
+{ config, ... }:
+
+{
+  nixosModules.hardwareModule.config = {
+    fileSystems = {
+      "/" = {
+        device = "/dev/vg0-root/root";
+        fsType = "ext4";
+        options = [ "noatime" "relatime" "errors=remount-ro" ];
+      };
+
+      "/boot" = {
+        device = "/dev/vda1";
+        fsType = "vfat";
+        options = [ "fmask=0022" "dmask=0022"
+                    "noatime" "nosuid" "nodev"
+        ];
+      };
+
+      "/nix" = {
+        device = "/dev/vg0-root/nix";
+        fsType = "ext4";
+        options = [ "noatime" "relatime" "nodev" ];
+      };
+
+      "/home" = {
+        device = "/dev/vg0-root/home";
+        fsType = "ext4";
+        options = [ "noatime" "noexec" "nosuid" "nodev" ];
+      };
+
+      "/var" = {
+        device = "/dev/vg0-root/var";
+        fsType = "ext4";
+        options = [ "noatime" "nosuid" "nodev" "noexec" ];
+      };
+
+      "/var/log" = {
+        device = "tmpfs";
+        fsType = "tmpfs";
+        options = [ "mode=1777" "nosuid" "nodev" "noexec" ];
+      };
+
+      "/tmp" = {
+        device = "/dev/vg0-root/tmp";
+        fsType = "tmpfs";
+        options = [ "mode=1777" "nosuid" "nodev" "noexec" ];
+      };
+
+      "/var/tmp" = {
+        device = "/dev/vg0-root/var_tmp";
+        fsType = "tmpfs";
+        options = [ "noatime" ];
+      };
+    };
+
+    swapDevices = [
+      {
+        device = "/dev/vg0-root/swap";
+        randomEncryption = {
+          enable = true;
+          cipher = "aes-xts-plain64";
+          keySize = 256;
+          sectorSize = 4096;
+          source = "/dev/urandom";
+          allowDiscards = true;
+        };
+        encrypted.label = "swap_crypt";
+        options = [ "discard" ];
+      }
+    ];
+  };
+}
