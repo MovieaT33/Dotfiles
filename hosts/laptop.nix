@@ -1,5 +1,5 @@
-{ inputs, ... }:
+{ ... }:
 
 {
-  imports = [ inputs.import-tree ../. ];
+  imports = [ ../modules/default.nix ];
 }
