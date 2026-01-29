@@ -6,7 +6,7 @@
   };
 
   outputs = { flake-parts, nixpkgs, ... } @ inputs:
-    flake-parts.lib.mkFlake { inherit nixpkgs; } {
+    flake-parts.lib.mkFlake {} {
       systems = [ "x86_64-linux" ];
       imports = [ ./modules/machine.nix ];
     };
